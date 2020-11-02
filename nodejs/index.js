@@ -9,7 +9,7 @@ const app_host = process.env.APP_HOST || "unknown";
 const server = http.createServer((req, res) => {
     res.statusCode = 200;
     //const msg = 'Hello Node!\n'
-    const msg = `Hello Word! Application version ${app_version} - Environment ${app_env} - ${app_host}\n`
+    const msg = `Hello Word! Application version ${app_version} - Environment ${app_env} - Hostname ${app_host}\n`
     res.end(msg);
 });
 
