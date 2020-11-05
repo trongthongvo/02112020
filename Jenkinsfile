@@ -72,7 +72,7 @@ pipeline {
             stages {
                 stage('Clone code') { 
                     when {
-                expression { params.BUILD_APP == 'nodejs' }
+                expression { params.BUILD_APP == 'python' }
             }
                   agent {
                      label 'node'
