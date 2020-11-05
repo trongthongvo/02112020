@@ -69,6 +69,7 @@ pipeline {
             steps {
         sh 'whoami'
         sh '''
+                  docker rm -f node-js-2020:latest
                   docker pull trongthongvo/node-js-2020:latest
                   docker run --name node-js-2020 -d -p 3000:3000  -e APP_VERSION=v1 -e APP_ENV=release -e APP_HOST="hostname_node_2" trongthongvo/node-js-2020:latest
                   docker logs node-js-2020
@@ -87,6 +88,7 @@ pipeline {
             steps {
         sh 'whoami'
         sh '''
+                  docker rm -f python-app-2020:latest
                   docker pull trongthongvo/python-app-2020:latest
                   docker run --name python-app-2020 -d -p 5000:5000 trongthongvo/python-app-2020:latest
                   docker logs python-app-2020
@@ -105,6 +107,8 @@ pipeline {
             steps {
         sh 'whoami'
         sh '''
+                  docker rm -f node-js-2020:latest
+                  docker rm -f python-app-2020:latest
                   docker pull trongthongvo/node-js-2020:latest
                   docker run --name node-js-2020 -d -p 3000:3000  -e APP_VERSION=v1 -e APP_ENV=release -e APP_HOST="hostname_node_2" trongthongvo/node-js-2020:latest
                   docker logs node-js-2020
