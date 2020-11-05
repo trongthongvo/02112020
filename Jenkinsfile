@@ -26,7 +26,9 @@ pipeline {
            '''
                 } 
             }
-    
+
+
+
         stage('Build code Python ') {
             when {
                 expression { params.BUILD_APP == 'python' }
@@ -56,6 +58,65 @@ pipeline {
          '''               
                 } 
             }
+        
+        stage('Deploy Nodejs ') {
+            when {
+                expression { params.BUILD_APP == 'nodejs' }
+            } 
+            agent {
+        label 'node'
+        }
+            steps {
+        sh 'whoami'
+        sh '''
+                  docker pull trongthongvo/node-js-2020:latest
+                  docker run --name node-js-2020 -d -p 3000:3000  -e APP_VERSION=v1 -e APP_ENV=release -e APP_HOST="hostname_node_2" trongthongvo/node-js-2020:latest
+                  docker logs node-js-2020
+                  '''
+          
+                } 
+            }
+
+        stage('Deploy python ') {
+            when {
+                expression { params.BUILD_APP == 'python' }
+            } 
+            agent {
+        label 'node'
+        }
+            steps {
+        sh 'whoami'
+        sh '''
+                  docker pull trongthongvo/python-app-2020:latest
+                  docker run --name python-app-2020 -d -p 5000:5000 trongthongvo/python-app-2020:latest
+                  docker logs python-app-2020
+                  '''
+          
+                } 
+            }
+
+        stage('Deploy All') {
+            when {
+                expression { params.BUILD_APP == 'all' }
+            } 
+            agent {
+        label 'node'
+        }
+            steps {
+        sh 'whoami'
+        sh '''
+                  docker pull trongthongvo/node-js-2020:latest
+                  docker run --name node-js-2020 -d -p 3000:3000  -e APP_VERSION=v1 -e APP_ENV=release -e APP_HOST="hostname_node_2" trongthongvo/node-js-2020:latest
+                  docker logs node-js-2020
+                  docker pull trongthongvo/python-app-2020:latest
+                  docker run --name python-app-2020 -d -p 5000:5000 trongthongvo/python-app-2020:latest
+                  docker logs python-app-2020
+                  '''
+          
+                } 
+            }
+
     }
+
 
 }
