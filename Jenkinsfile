@@ -21,8 +21,8 @@ pipeline {
         }
             steps {
         sh 'whoami'
-        sh '''git update-index --chmod=+x nodejs.sh
-              nodejs.sh  
+        sh '''
+              ./nodejs.sh  
            '''
                 } 
             }
@@ -36,8 +36,8 @@ pipeline {
         }
             steps {
        sh 'whoami'
-        sh '''git update-index --chmod=+x python.sh
-              python.sh
+        sh '''
+              ./python.sh
          '''               
                 } 
             }
@@ -50,7 +50,7 @@ pipeline {
         }
             steps {
        sh 'whoami'
-        sh '''git update-index --chmod=+x foo.sh
+        sh '''
               nodejs.sh 
               python.sh
          '''               
