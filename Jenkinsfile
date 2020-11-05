@@ -51,8 +51,8 @@ pipeline {
             steps {
        sh 'whoami'
         sh '''
-              nodejs.sh 
-              python.sh
+              ./nodejs.sh 
+              ./python.sh
          '''               
                 } 
             }
