@@ -3,12 +3,23 @@ pipeline {
     environment {
       DOCKERHUB_PW = credentials('PW-dockerhub-112020')
   }
+    
+    parameters {
+        choice(
+            choices: ['all', 'nodejs', 'python'],
+            description: '',
+            name: 'BUILD_APP',
+            )
+    }
 
     stages {
     
             stage('Node JS') {
             stages {
-                stage('Clone code') { 
+                stage('Clone code') {
+                when {
+                expression { params.BUILD_APP == 'nodejs' }
+            }
                   agent {
                      label 'master'
                         }
@@ -60,6 +71,9 @@ pipeline {
         stage('Node Python') {
             stages {
                 stage('Clone code') { 
+                    when {
+                expression { params.BUILD_APP == 'nodejs' }
+            }
                   agent {
                      label 'node'
                         }
@@ -111,5 +125,4 @@ pipeline {
 
       }
     }
-
 
